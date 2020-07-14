@@ -1,0 +1,23 @@
+{{- $link := .Destination -}}
+{{- $alt := .Text -}}
+{{- $cap := .Title -}}
+
+{{- if and (not (path.Ext .Destination)) (.Page.Resources.GetMatch (print .Destination "/*.jpg")) -}} 
+{{- $link = (.Page.Resources.GetMatch (print .Destination "/*.jpg")).Permalink -}}
+{{- if not $cap -}}
+{{- with .Page.Resources.GetMatch (print .Destination "/caption.*") -}}
+{{- $cap = chomp .Plain -}}
+{{- end -}}
+{{- end -}}
+{{- if not $alt }}{{ $alt = $cap }}{{ end }}
+{{- end -}}
+{{- with $link -}}
+<figure>
+    <img src="{{ . }}" alt="{{ $alt }}">
+    {{- with $cap -}}
+    <figcaption>
+        {{ . }}
+    </figcaption>
+    {{- end -}}
+</figure>
+{{- end -}}
