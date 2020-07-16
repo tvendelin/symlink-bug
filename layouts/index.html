@@ -7,5 +7,8 @@
     </head>
     <body>
         {{ .Content }}
+        {{ range .Pages }}
+        <a href="{{.Permalink}}">{{.LinkTitle}}</a>
+        {{ end }}
     </body>
 </html>
